@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.signal import correlate2d, convolve2d
 
 """ 
 Note: This is a 2D Convolution layer, only accepts images with one colour channel. 
