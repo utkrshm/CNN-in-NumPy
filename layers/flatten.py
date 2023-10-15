@@ -1,4 +1,5 @@
 import numpy as np
+
 class Flatten:    
     def forward(self, layer_input):
         self.input_shape = layer_input.shape

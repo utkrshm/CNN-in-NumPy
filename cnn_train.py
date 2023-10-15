@@ -1,14 +1,3 @@
-""" 
-INCOMPLETE!!
-
-All that remains now, your old enemies.
-    - Loss increasing, not decreasing. 
-      The reason behind it, this time is that the position where you're defining your loss, is inaccurate.
-      When it was defined outside the epochs, your loss increased for a while and then became stagnant.
-      When it was being changed every epoch, your loss always remained stagnant. FIO why that is happening.
-      Start with your loss function declarations in your Model class, and the Loss classes.
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -88,6 +77,5 @@ trnX =  trnX / np.float64(255.0)
 
 s_trnX = trnX[0]
 
-# model.train(trnX, trnY, epochs=500, display_per_epochs=10, lr=0.1)
-# print(trnY.sum(axis=1))
+model.train(trnX, trnY, epochs=500, display_per_epochs=10, lr=0.1)
 

@@ -49,7 +49,7 @@ class Conv2D:
             output_img += self.kernel_biases
         return output_img
         
-    #                    (14, 14, 2)
+
     def backward(self, output_grad, lr):
         dkW = np.zeros(self.kernel_shape)
         

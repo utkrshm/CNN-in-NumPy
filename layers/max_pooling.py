@@ -54,4 +54,3 @@ class MaxPooling:
     
     def backward(self, output_grad, lr):
         return self.switches.reshape(self.input_image_original_shape)
-            #    Shape -      (14, 14, 2)

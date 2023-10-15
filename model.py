@@ -12,31 +12,6 @@ np.set_printoptions(linewidth=140)
 
 LOSS_MAPPINGS = {'mse': MSE, 'binarycrossentropy': CrossEntropyLoss}
 
-""" 
-## Proposed CNN architecture
-
-Training data: (160, 28, 28)
-
-Per Image: (28, 28)
-
-Per image network architecture:
-- Convolution - (28, 28) to (14, 14, 2)
-  - Filter size: (2x2)
-  - Stride: 2
-  - No of kernels = no of digits to be recognized (in this case, 2)
-- Activation - Sigmoid
-- MaxPooling - (14, 14, 2) to (7, 7, 2)
-  - Stride: 1
-  - Filter size: (2x2)
-  - Pad: None
-- Reshape - (7, 7, 2) to (98, 1) (flatten operation)
-- Dense - 98 to 35
-- Activation - Softmax
-- Dense - 35 to 2
-- Activation - Softmax
-- Loss - Cross Entropy
-"""
-
 
 class Model:
     def __init__(self, loss: [str, Callable], layers = []):
@@ -53,8 +28,6 @@ class Model:
         for layer in self.layers:            
             output = layer.forward(output)
 
-            # print(type(layer), output.shape)
-
         return output
     
     
@@ -63,12 +36,6 @@ class Model:
         
         for layer in reversed(self.layers):
             grad_of_layer_output = layer.backward(grad_of_layer_output, self.lr)
-            
-            # if type(grad_of_layer_output) == type(None):
-            #     print(type(layer))
-            # else:
-            #     print(type(layer), grad_of_layer_output.shape)
-            # print(grad_of_layer_output)
             
     
     def get_accuracy(self, y_preds, y_true):
@@ -82,12 +49,12 @@ class Model:
         loss_over_epochs = []
         acc_over_epochs = []
         
-        loss = 0
-        acc = 0   
         for epoch in range(epochs):
-            print(f'Starting epoch {epoch}: Dense layer weights shape: {self.layers[-2].weights.shape}')
-            print(self.layers[-2].weights)       
+            loss = 0
+            acc = 0
+            
             timer_start = time()
+            
             for x, y in zip(train_x, train_y):
                 y = y.reshape((2, 1))
                 # Forward propogation
@@ -102,9 +69,7 @@ class Model:
                                 
                 # Backward propogation and gradients' updation
                 self._backprop(example_loss_grad)
-                
-                # print(example_loss.tolist(), example_loss_grad.tolist(), example_acc)
-                
+                                
                 # Update the main loss and accuracy
                 loss += example_loss
                 acc += example_acc

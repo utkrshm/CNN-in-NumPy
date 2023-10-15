@@ -28,4 +28,3 @@ class Dense:
         self.biases -= lr * db
         
         return input_grads
-        
