@@ -55,7 +55,15 @@ def get_subsets(X, Y, nums: list, n_samples: int, val_pct = 0.2):
     #               Training set                      Validation set
     return (X[trn_indices], Y[trn_indices]), (X[val_indices], Y[val_indices])
 
-(trnX, trnY), (valX, valY) = get_subsets(x_train, y_train, nums=[4, 9], n_samples=100)
+
+# HYPERPARAMETERS
+CLASSES = [2, 3, 4, 5, 8, 9]
+N_SAMPLES = 100
+lr = 5
+
+
+# Actual training
+(trnX, trnY), (valX, valY) = get_subsets(x_train, y_train, nums=CLASSES, n_samples=N_SAMPLES)
 
 layers = [
     Conv2D((28, 28), stride=2),
@@ -66,7 +74,7 @@ layers = [
     Sigmoid(),
     Dense(50, 10),
     Sigmoid(),
-    Dense(10, 2),
+    Dense(10, len(CLASSES)),
     Softmax()
 ]
 
@@ -77,5 +85,4 @@ trnX =  trnX / np.float64(255.0)
 
 s_trnX = trnX[0]
 
-model.train(trnX, trnY, epochs=500, display_per_epochs=10, lr=0.1)
-
+model.train(trnX, trnY, epochs=50, display_per_epochs=1, lr=lr)

@@ -39,8 +39,12 @@ class Model:
             
     
     def get_accuracy(self, y_preds, y_true):
-        y_preds = (y_preds > 0.5).astype(int)
-        return np.sum(y_preds == y_true) / y_true.size
+        idx_of_max_confidence = np.argmax(y_preds)
+        
+        preds_bin_array = np.zeros(y_preds.shape)
+        preds_bin_array[idx_of_max_confidence] = 1
+
+        return np.sum(preds_bin_array == y_true) / y_true.size
     
     
     def train(self, train_x, train_y, epochs = 10, lr = 0.01, display_per_epochs = 1):
@@ -56,7 +60,7 @@ class Model:
             timer_start = time()
             
             for x, y in zip(train_x, train_y):
-                y = y.reshape((2, 1))
+                y = y.reshape((y.shape[0], 1))
                 # Forward propogation
                 y_preds = self._forward_prop(x)
                 # print(x.shape, y.shape, y_preds.shape)

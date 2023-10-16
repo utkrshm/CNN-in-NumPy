@@ -7,7 +7,7 @@ class CrossEntropyLoss:
         return -1. * np.mean(actuals * np.log(preds))
     
     def backward(cls, preds, actuals):
-        return -1. * (actuals / preds)
+        return (preds - actuals) / (preds * (1 - preds))
 
 
 class MSE:
@@ -17,6 +17,5 @@ class MSE:
         return ((actuals - preds) ** 2).mean()
     
     def backward(cls, preds, actuals):
-        print(cls, preds, actuals)
 
         return -2 * (actuals - preds)
