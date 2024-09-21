@@ -61,7 +61,13 @@ class Model:
             timer_start = time()
             
             for x, y in zip(train_x, train_y):
+                print(x.shape)
+                # Reshaping X and Y
                 y = y.reshape((y.shape[0], 1))
+                
+                if x.ndim == 2:
+                    x = np.expand_dims(x, axis=0)
+                print(x.shape)
                 # Forward propogation
                 y_preds = self._forward_prop(x)
                 

@@ -33,7 +33,8 @@ class ReLU:
 
 class Softmax:
     def _softmax(self, Z):
-        return np.exp(Z) / np.sum(np.exp(Z))
+        e_Z = np.exp(Z)
+        return e_Z / e_Z.sum()
     
     
     def forward(self, layer_input):
